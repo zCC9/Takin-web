@@ -32,10 +32,10 @@ public class ApplicationNodeProbeDAOImpl implements ApplicationNodeProbeDAO, MPU
     @Override
     public ApplicationNodeProbeResult getByApplicationNameAndAgentId(String applicationName, String agentId) {
         ApplicationNodeProbeEntity applicationNodeProbeEntity =
-            applicationNodeProbeMapper.selectOne(this.getLimitOneLambdaQueryWrapper().select(ApplicationNodeProbeEntity::getId,
-                ApplicationNodeProbeEntity::getOperateId, ApplicationNodeProbeEntity::getOperate,
-                ApplicationNodeProbeEntity::getProbeId, ApplicationNodeProbeEntity::getOperateResult)
-                .eq(ApplicationNodeProbeEntity::getCustomerId, WebPluginUtils.getCustomerId())
+            applicationNodeProbeMapper.selectOne(this.getCustomerLimitOneLambdaQueryWrapper()
+                .select(ApplicationNodeProbeEntity::getId, ApplicationNodeProbeEntity::getOperateId,
+                    ApplicationNodeProbeEntity::getOperate, ApplicationNodeProbeEntity::getProbeId,
+                    ApplicationNodeProbeEntity::getOperateResult)
                 .eq(ApplicationNodeProbeEntity::getApplicationName, applicationName)
                 .eq(ApplicationNodeProbeEntity::getAgentId, agentId));
         if (applicationNodeProbeEntity == null) {
