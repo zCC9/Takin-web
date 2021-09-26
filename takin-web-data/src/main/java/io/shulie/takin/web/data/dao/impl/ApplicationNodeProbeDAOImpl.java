@@ -12,6 +12,7 @@ import io.shulie.takin.web.data.param.application.CreateApplicationNodeProbePara
 import io.shulie.takin.web.data.param.probe.UpdateOperateResultParam;
 import io.shulie.takin.web.data.result.application.ApplicationNodeProbeResult;
 import io.shulie.takin.web.data.util.MPUtil;
+import io.shulie.takin.web.ext.util.WebPluginUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,6 +35,7 @@ public class ApplicationNodeProbeDAOImpl implements ApplicationNodeProbeDAO, MPU
             applicationNodeProbeMapper.selectOne(this.getLimitOneLambdaQueryWrapper().select(ApplicationNodeProbeEntity::getId,
                 ApplicationNodeProbeEntity::getOperateId, ApplicationNodeProbeEntity::getOperate,
                 ApplicationNodeProbeEntity::getProbeId, ApplicationNodeProbeEntity::getOperateResult)
+                .eq(ApplicationNodeProbeEntity::getCustomerId, WebPluginUtils.getCustomerId())
                 .eq(ApplicationNodeProbeEntity::getApplicationName, applicationName)
                 .eq(ApplicationNodeProbeEntity::getAgentId, agentId));
         if (applicationNodeProbeEntity == null) {
