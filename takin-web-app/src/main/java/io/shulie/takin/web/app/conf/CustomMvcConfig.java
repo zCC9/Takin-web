@@ -1,18 +1,19 @@
 package io.shulie.takin.web.app.conf;
 
-import lombok.NonNull;
-import org.springframework.web.filter.CorsFilter;
-import org.springframework.context.annotation.Bean;
-import org.springframework.format.FormatterRegistry;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import io.shulie.takin.web.app.conf.intercepter.AbstractInterceptor;
 import io.shulie.takin.web.app.factory.TrimmedAnnotationFormatterFactory;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import lombok.NonNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.flyway.FlywayMigrationInitializer;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.format.FormatterRegistry;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * @author shulie
@@ -20,6 +21,15 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
  */
 @Configuration
 public class CustomMvcConfig implements WebMvcConfigurer {
+
+    /**
+     * flyway 注入, 确保 flyway 启动顺序
+     * 如果 flyway 关闭, 确保不报错
+     * 如果 flyway 开启, 则优先于其他使用 sql 的地方, 先执行 sql 变更
+     */
+    @Autowired(required = false)
+    private FlywayMigrationInitializer flywayMigrationInitializer;
+
     @Autowired
     private AbstractInterceptor abstractInterceptor;
 
