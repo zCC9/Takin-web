@@ -123,6 +123,8 @@ public class LinkManageTableEntity {
     @TableField(value = "features")
     private String features;
 
+    @TableField(value = "persistence")
+    private boolean persistence;
 
     public static final String COL_LINK_ID = "LINK_ID";
 

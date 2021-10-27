@@ -55,4 +55,6 @@ public class ActivityCreateRequest {
 
     @NotBlank
     private String serviceName;
+
+    private boolean persistence;
 }

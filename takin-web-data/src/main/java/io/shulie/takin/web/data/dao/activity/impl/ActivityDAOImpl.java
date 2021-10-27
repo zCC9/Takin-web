@@ -108,6 +108,7 @@ public class ActivityDAOImpl implements ActivityDAO {
         map.put(FeaturesConstants.SERVICE_NAME_KEY, param.getServiceName());
         map.put(FeaturesConstants.SERVER_MIDDLEWARE_TYPE_KEY, param.getType().getType());
         linkManageTableEntity.setFeatures(JSON.toJSONString(map));
+        linkManageTableEntity.setPersistence(param.isPersistence());
 
         // 再创建业务链路
         int insert1 = linkManageTableMapper.insert(linkManageTableEntity);
@@ -119,6 +120,7 @@ public class ActivityDAOImpl implements ActivityDAO {
     @Override
     public int createActivityNew(ActivityCreateParam param) {
         BusinessLinkManageTableEntity businessLinkManageTableEntity = new BusinessLinkManageTableEntity();
+        businessLinkManageTableEntity.setPersistence(param.isPersistence());
         businessLinkManageTableEntity.setLinkName(param.getActivityName());
         businessLinkManageTableEntity.setEntrace(param.getEntrance());
         if (param.getBusinessType().equals(BusinessTypeEnum.NORMAL_BUSINESS.getType())) {
@@ -320,6 +322,7 @@ public class ActivityDAOImpl implements ActivityDAO {
             lambdaQueryWrapper.in(BusinessLinkManageTableEntity::getUserId, param.getUserIdList());
         }
         lambdaQueryWrapper.eq(BusinessLinkManageTableEntity::getIsDeleted, 0);
+        lambdaQueryWrapper.eq(BusinessLinkManageTableEntity::isPersistence,true);
 
         Page<BusinessLinkManageTableEntity> tableEntityPage = businessLinkManageTableMapper
             .selectPage(page, lambdaQueryWrapper);

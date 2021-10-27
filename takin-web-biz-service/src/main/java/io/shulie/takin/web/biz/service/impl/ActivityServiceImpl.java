@@ -121,6 +121,7 @@ public class ActivityServiceImpl implements ActivityService {
         createParam.setEntrance(
             ActivityUtil.buildEntrance(request.getApplicationName(), request.getMethod(), request.getServiceName(),
                 request.getRpcType()));
+        createParam.setPersistence(request.isPersistence());
         activityDAO.createActivity(createParam);
         notifyClient.startApplicationEntrancesCalculate(request.getApplicationName(), request.getServiceName(),
             request.getMethod(), request.getRpcType(), request.getExtend());

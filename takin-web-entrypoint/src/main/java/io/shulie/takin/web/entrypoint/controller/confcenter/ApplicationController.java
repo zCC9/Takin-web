@@ -298,4 +298,15 @@ public class ApplicationController {
         applicationService.attendApplicationService(request);
     }
 
+    @PostMapping("/application/center/app/gotoActivityInfo")
+    @ApiOperation("关注应用服务接口")
+    @AuthVerification(
+            moduleCode = BizOpConstants.ModuleCode.APPLICATION_MANAGE,
+            needAuth = ActionTypeEnum.CREATE
+    )
+    public long gotoActivityInfo(@RequestBody ApplicationVisualInfoQueryRequest request) throws Exception {
+        return 0;
+//        return applicationService.gotoActivityInfo(request);
+    }
+
 }
